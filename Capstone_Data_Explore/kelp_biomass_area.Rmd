@@ -8,22 +8,20 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-```{r}
-library(here)
-
-#Set up data directory
-data_dir <- here("..")
-```
-
 
 ## First tutorial using `ncdf4` package following [this](https://rpubs.com/boyerag/297592) tutorial. 
 
 ```{r}
 # load in packages
 library(ncdf4)
-
+library(tidync)
+library(raster)
+library(tmap)
 ```
+## Current Question/ things I don't understand: 
+**How to correctly set the extent, crs, and datum so the raster ends up in the correct spot. Right now it appears to cover the entire west coast with some of the highest kelp biomass in eastern Oregon...**
 
+**Also don't understand how to access the time element/ layers. According to the metadata there should be measurement quarterly from 1984 to 2019 but I have only successfully gotten a single raster to display and all attempts to filter have not worked.**
 
 first the output of the steps in the tutorial. 
 
@@ -42,7 +40,7 @@ first the output of the steps in the tutorial.
 link to data download: https://sbclter.msi.ucsb.edu/data/catalog/package/?package=knb-lter-sbc.74
 ```{r}
 # Read in the netCDF file downloaded form the lter 
-kelp_data <- nc_open(file.path(data_dir, 'GIMMS3G_NDVI_TRENDS_1275', 'data','LandsatKelpBiomass_2022_Q4_withmetadata.nc'))
+kelp_data <- nc_open('/Users/jfrench/Documents/MEDS/Capstone/DATA/GIMMS3G_NDVI_TRENDS_1275/data/LandsatKelpBiomass_2022_Q4_withmetadata.nc')
 
 # print the metadata
 print(kelp_data)
@@ -50,10 +48,43 @@ print(kelp_data)
 The rest of the outputs for the tutorial are shown on the webpage
 
 ```{r}
+# extract the lat and long variables
+
+lat <- ncvar_get(kelp_data, "latitude")
+lon <- ncvar_get(kelp_data, "longitude")
+
+area <- ncvar_get(kelp_data, "area")
+```
+
+
+```{r}
 # From the metadata it looks like the location data is store in the station variable. Extract station variable and look at it 
  station <- ncvar_get(kelp_data, "station")
 
+# When I have been able to look at the biomass variable as a data frame it appears to be all NAs so I am going to try to filter to any non NA values and if they exist. 
+biomass <- ncvar_get(kelp_data, "biomass") 
+
+# There are non-NA values
+#biomass[is.na(biomass[,]) != TRUE]
+
+# Try creating a slice in a time period I think will have values
+biomass_slice <- biomass[,116]
+
+# Try how they visualised in the tutorial
+biomass_r <- raster(biomass, xmn=min(lon), xmx=max(lon), ymn=min(lat), ymx=max(lat), crs=CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs+ towgs84=0,0,0"))
+
+area_r <- raster(area, xmn=min(lon), xmx=max(lon), ymn=min(lat), ymx=max(lat))
+# Try plotting, it pops up but I don't really understand what I am looking at.
+plot(area_r)
+
+# lets try putting this on a tmap and see where is site relative to the channel islands
+tmap_mode(mode = "view")
+tm_shape(area_r) +
+  tm_raster()
+
+
 print(station)
+print(biomass)
 ```
 My interpretation of the situation is that the location information is is linked to the station variable. Each observation only has information for the station and each lat and lon has an associated station. Need to join the lat lon information to the observations based on station. 
 
