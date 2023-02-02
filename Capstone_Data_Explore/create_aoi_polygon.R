@@ -17,6 +17,8 @@ coordinates <- tribble(
   st_bbox() |>  
   st_as_sfc()
 
+
+# change your file path to wherever you want to save the shape file.
 st_write(coordinates,
          "/Users/jfrench/Documents/MEDS/Capstone/DATA/AOI_SBchannel.shp", 
          driver = "ESRI Shapefile")
