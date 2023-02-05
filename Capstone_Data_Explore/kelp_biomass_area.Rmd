@@ -43,7 +43,7 @@ link to data download: https://sbclter.msi.ucsb.edu/data/catalog/package/?packag
 kelp_data <- nc_open('/Users/jfrench/Documents/MEDS/Capstone/DATA/GIMMS3G_NDVI_TRENDS_1275/data/LandsatKelpBiomass_2022_Q4_withmetadata.nc')
 
 # print the metadata
-print(kelp_data)
+meta_data <- arcticdatautils::get_ncdf4_attributes(kelp_data)
 ```
 The rest of the outputs for the tutorial are shown on the webpage
 
@@ -73,7 +73,8 @@ biomass_slice <- biomass[,116]
 # Try how they visualised in the tutorial
 biomass_r <- raster(biomass, xmn=min(lon), xmx=max(lon), ymn=min(lat), ymx=max(lat), crs=CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs+ towgs84=0,0,0"))
 
-area_r <- raster(area, xmn=min(lon), xmx=max(lon), ymn=min(lat), ymx=max(lat))
+area_r <- raster(area, xmn=min(lon), xmx=max(lon), ymn=min(lat), ymx=max(lat),
+                 crs = "EPSG:4326")
 # Try plotting, it pops up but I don't really understand what I am looking at.
 plot(area_r)
 
@@ -105,4 +106,6 @@ lon <- ncvar_get(kelp_data, "longitude")
 
 print(lon)
 ```
+
+
 

@@ -1,0 +1,46 @@
+# Currents in the Santa Barbara Channel. The file is a netCDF at 1km spatial scale downloaded from [here](https://dods.ndbc.noaa.gov/thredds/ncss/grid/hfradar_uswc_1km/dataset.html). I also filtered to our area of interest coordinates which are also available in the data explore repo on kelpgeomod
+
+
+```{r}
+# Read in packages
+library(ncdf4)
+library(tidync)
+library(raster)
+library(tmap)
+```
+
+
+```{r}
+# Read in the file
+
+currents_file <- nc_open("/Users/jfrench/Documents/MEDS/Capstone/DATA/hfradar_uswc_1km.nc")
+```
+
+```{r}
+# view metadata
+current_attributes <- arcticdatautils::get_ncdf4_attributes(currents_file)
+```
+
+```{r}
+# pull out lat and lon
+lon <- ncvar_get(currents_file, "lon")
+lat <- ncvar_get(currents_file, "lat")
+
+# Pull out one variable, u
+
+u <- ncvar_get(currents_file, "u") |> 
+  as.matrix()
+
+
+```
+
+```{r}
+# try to plot u
+
+# rasterize u
+raster_u <- raster(u, xmn=min(lon), xmx=max(lon), ymn=min(lat), ymx=max(lat), 
+                   crs = "EPSG: 4326")
+
+plot(u)
+```
+
