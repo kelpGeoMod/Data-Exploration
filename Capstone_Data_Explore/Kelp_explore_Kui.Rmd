@@ -1,0 +1,54 @@
+---
+title: "Kelp Project Test Dr. Kui Code"
+author: "Jessica French"
+date: "2023-01-18"
+output: html_document
+---
+
+# This notebook will use the code that Dr. Kui sent over, the kelp_nc.R file will be in the repo. 
+
+```{r}
+# Read in Libraries
+library(tidyverse)
+library(ncdf4)
+```
+
+```{r}
+# Read in the file 
+ncin <- nc_open("/Users/jfrench/Documents/MEDS/Capstone/DATA/LandsatKelpBiomass_2022_Q4_withmetadata.nc")
+```
+
+```{r}
+# Pull out teh need variables
+year <-ncvar_get(ncin,"year")
+quarter <- ncvar_get(ncin,"quarter")
+
+lon <- ncvar_get(ncin,"longitude")
+lat <- ncvar_get(ncin,"latitude")
+biomass<-ncvar_get(ncin,"biomass") 
+biomass_se<-ncvar_get(ncin,"biomass_se")
+```
+
+```{r}
+# Put year and quarter into a data frame
+time<-data.frame(year,quarter)
+```
+
+```{r}
+# Creates a data frame with latitude and longitude and biomass, and biomass standard error at time step 147. Additionally the filter on lat and lon is limiting to santa rosa island. For our purposes we wouldnt filter. 
+df<-data.frame(lat,lon,biomass=data.frame(biomass)[,147],biomass_se=data.frame(biomass_se)[,147]) %>%
+  filter(!is.na(biomass)) %>%
+  filter(lat>=33.847062&lat<=34.100458&lon>=-120.291726&lon<=-119.924374)
+```
+
+```{r}
+#Map
+library(rworldmap)
+newmap <- getMap(resolution = "low")
+plot(newmap, xlim = c(-122, -116), ylim = c(32, 37), asp = 1)
+rbPal <- colorRampPalette(c('red','blue'))
+col_bio <- rbPal(10)[as.numeric(cut(as.numeric(df$biomass),breaks = 10))]
+points(df$lon, df$lat, col = col_bio, pch=16,cex = .4)
+```
+
+This works!
