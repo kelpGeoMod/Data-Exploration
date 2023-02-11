@@ -1,0 +1,62 @@
+##Ocean Currents and Biogeochemistry nearshore water profiles (monthly ctd and cheimtry)
+
+```{r}
+# Load in packages
+library(tidyverse)
+library(janitor)
+library(sf)
+library(tmap)
+
+```
+
+
+```{r}
+# read in the file of verified sites
+
+data <- read_csv2("/Users/jfrench/Documents/MEDS/Capstone/DATA/LTER_monthly_bottledata_20220930.txt")
+```
+
+```{r}
+# need to fix the lat and long column, they are not separated with decimal or anything, from the website they are in decimal degrees. Lat is two digits before the decimal and lon is three. 
+
+data <- data |> 
+  clean_names() |> 
+  filter(longitude_e < 0)
+
+stringi::stri_sub(data$latitude_n, 3, 2) <- '.' 
+stringi::stri_sub(data$longitude_e, 5, 4) <- '.'
+
+
+data <- data |> 
+  mutate("latitude_n" = as.numeric(latitude_n),
+         "longitude_e" = as.numeric(longitude_e))
+```
+
+
+```{r}
+# convert the lat and long columns to point geometry
+
+data <- data |> 
+  st_as_sf(coords = c("longitude_e", "latitude_n"), 
+           crs = 4326) 
+```
+
+```{r}
+plot(data$longitude_e, data$latitude_n)
+```
+
+
+```{r}
+
+library(spData)
+california <- us_states |> 
+  filter(NAME == "California")
+
+# plot the sites
+tmap_mode(mode = "plot")
+tm_shape(california)+
+  tm_borders() +
+  tm_shape(data) +
+  tm_dots() 
+```
+
