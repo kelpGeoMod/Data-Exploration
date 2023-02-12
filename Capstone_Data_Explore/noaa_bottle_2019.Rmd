@@ -1,0 +1,29 @@
+# NOAA bottle measurements from oct to nov 2019.
+There are two sample sites in our area of interst but thats something. 
+```{r}
+# Read in packages
+library(tidyverse)
+library(tmap)
+library(sf)
+```
+
+```{r}
+# read in the csv file
+data <- read_csv("/Users/jfrench/Documents/MEDS/Capstone/DATA/RL-19-05_BTL_CTD_data v2.0.csv")
+```
+
+```{r}
+# convert lat and long columns to sf
+data <- data |> 
+  st_as_sf(coords = c("Longitude", "Latitude"),
+           crs = 4326)
+```
+
+```{r}
+# Create map to see where the samples were taken
+tmap_mode(mode = "view")
+
+tm_shape(data) +
+  tm_dots()
+```
+
