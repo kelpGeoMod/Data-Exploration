@@ -1,0 +1,63 @@
+---
+title: "Data Wrangling Checklist"
+author: "Javier Patrón"
+date: "2023-02-11"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+```{r}
+# Read in the data
+
+
+
+```
+
+
+
+
+```{r}
+# Check CRS (do we want NAD 83 or WGS 84? what's been more common?), spatial resolution, and temporal resolution, and document these
+# We can compare the defaults across all data sets to see what would be the most useful values to maintain for all data sets?
+```
+
+
+
+
+```{r}
+# Create a geometry column if needed from latitude and longitude
+```
+
+
+
+
+```{r}
+# Summarize the measurements so that they are on the agreed upon common temporal resolution
+```
+
+
+
+
+```{r}
+# Use spatial interpolation to get measurements on the agreed upon common spatial scale
+# Would we want auto kriging? https://www.r-bloggers.com/2013/02/automatic-spatial-interpolation-with-r-the-automap-package/
+# Aggregating option https://stackoverflow.com/questions/32278825/how-to-change-the-resolution-of-a-raster-layer-in-r
+```
+
+
+
+
+
+```{r}
+# Join data set into whichever other data sets are ready via the geometry column (or another consistent ID?)
+```
+
+
+
+
