@@ -1,4 +1,4 @@
-# NOAA bottle measurements from oct to nov 2019.
+# USGS bottle measurements from oct to nov 2019.
 There are two sample sites in our area of interst but thats something. 
 ```{r}
 # Read in packages
@@ -9,7 +9,7 @@ library(sf)
 
 ```{r}
 # read in the csv file
-data <- read_csv("/Users/jfrench/Documents/MEDS/Capstone/DATA/RL-19-05_BTL_CTD_data v2.0.csv")
+data <- read_csv("/Users/jfrench/Downloads/SH-18-12_BTL_CTD_data_v3.0.csv")
 ```
 
 ```{r}

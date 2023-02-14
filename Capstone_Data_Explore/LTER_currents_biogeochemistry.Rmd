@@ -13,7 +13,7 @@ library(tmap)
 ```{r}
 # read in the file of verified sites
 
-data <- read_csv2("/Users/jfrench/Documents/MEDS/Capstone/DATA/LTER_monthly_bottledata_20220930.txt")
+data <- read_csv2("/Users/jfrench/Documents/MEDS/Capstone/DATA/Nutrients/LTER_bottle/LTER_monthly_bottledata_20220930.txt")
 ```
 
 ```{r}
@@ -45,6 +45,11 @@ data <- data |>
 plot(data$longitude_e, data$latitude_n)
 ```
 
+```{r}
+data_2 <- data |> 
+  select(geometry, no2_no3_umol_l)
+```
+
 
 ```{r}
 
@@ -53,10 +58,10 @@ california <- us_states |>
   filter(NAME == "California")
 
 # plot the sites
-tmap_mode(mode = "plot")
+tmap_mode(mode = "view")
 tm_shape(california)+
   tm_borders() +
-  tm_shape(data) +
+  tm_shape(data_2) +
   tm_dots() 
 ```
 
