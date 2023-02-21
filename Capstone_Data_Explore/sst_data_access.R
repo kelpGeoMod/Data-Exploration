@@ -42,7 +42,7 @@ if (file.exists(netrc) == FALSE || grepl("urs.earthdata.nasa.gov", readLines(net
 # **IMPORTANT: be sure to update the links for the specific files you are interested in downloading.
 
 # 1. Single file (this is just an example link, replace with your desired file to download):
-files <- "https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1."
+files <- "https://opendap.earthdata.nasa.gov/providers/POCLOUD/collections/GHRSST%20Level%204%20MUR%20Global%20Foundation%20Sea%20Surface%20Temperature%20Analysis%20(v4.1)/granules/20190101090000-JPL-L4_GHRSST-SSTfnd-MUR-GLOB-v02.0-fv04.1.nc"
 
 # 2. List of files (these are just example links, replace with your desired files to download:
 #files <- c("https://e4ftl01.cr.usgs.gov/MOLA/MYD09GA.061/2002.07.06/MYD09GA.A2002187.h10v04.061.2020071193416.hdf",
