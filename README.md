@@ -7,3 +7,12 @@ Currently all files are in regards to area and biomass data stored in a netCDF f
 
 The output from printing the metadata from the data used in the tutorial is in a screen shot in the repo.
 
+
+Regional Coordinates are: 
+
+ ~lat, ~lon,
+  33.83, -120.50, 
+  33.83, -119.45, 
+  34.49, -120.50, 
+  34.49, -119.45
+
