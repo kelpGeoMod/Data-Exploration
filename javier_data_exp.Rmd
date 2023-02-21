@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-
+Read in the Data
 ```{r}
 # Read in the data
 
@@ -20,18 +20,22 @@ library(tidyverse)
 ```
 
 
-
-
+Data Exploration
 ```{r}
 # Check CRS (do we want NAD 83 or WGS 84? what's been more common?), spatial resolution, and temporal resolution, and document these
 # We can compare the defaults across all data sets to see what would be the most useful values to maintain for all data sets?
+
+
+
 ```
 
 
 
-
+Check the Lat Long, Repo
 ```{r}
 # Create a geometry column if needed from latitude and longitude
+
+
 ```
 
 
@@ -39,6 +43,9 @@ library(tidyverse)
 
 ```{r}
 # Summarize the measurements so that they are on the agreed upon common temporal resolution
+
+
+
 ```
 
 
