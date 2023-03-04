@@ -1,4 +1,4 @@
-# Create A Shapefile of our area of interest -120.50, 33.83, -119.45, 34.49
+# Create A Shapefile of our area of interest -120.50, 33.83, -119.45, 34.49 (These are the old coords)
 #Load in libraries
 library(tidyverse)
 library(sf)
@@ -8,10 +8,10 @@ library(tmap)
 
 coordinates <- tribble(
   ~lat, ~lon,
-  33.83, -120.50, 
-  33.83, -119.45, 
-  34.49, -120.50, 
-  34.49, -119.45
+  34.59, -118.80, 
+  33.85, -120.65, 
+  34.59, -120.65, 
+  33.85, -118.80
 ) |> 
   st_as_sf(coords = c("lon", "lat"), 
            crs = "EPSG: 4326") |> 
@@ -21,5 +21,5 @@ coordinates <- tribble(
 
 # change your file path to wherever you want to save the shape file.
 st_write(coordinates,
-         "/Users/jfrench/Documents/MEDS/Capstone/DATA/AOI_SBchannel.shp", 
+         "/Users/jfrench/Documents/MEDS/Capstone/DATA/AOI_test", 
          driver = "ESRI Shapefile")

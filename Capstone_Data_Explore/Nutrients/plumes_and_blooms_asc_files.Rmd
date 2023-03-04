@@ -1,0 +1,33 @@
+---
+title: "Plumes and Blooms ASC Files"
+author: "Jessica French"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# attach libraries
+library(tidyverse)
+library(terra) # trying to read in as a raster did not work
+library(raster)
+library(SDMTools)
+```
+
+```{r}
+setwd("/Users/jfrench/Documents/MEDS/Capstone/DATA/Nutrients/plumes_blooms/plumes_and_blooms_ASC")
+```
+
+
+```{r}
+# read in one asc file
+
+file <- read.table("pb000124.asc", col.names = c("ID","Julien",	"Lat",	"Lon",	"Nom_Depth",	"uTime",	"uTemp",	"uSalt",	"uFluor1",	"uFlour2",	"uTrans",	"Bottle",	"Pr",	"TimeJ",	"Sal",	"PoTemp068",	"Sig00",	"Sigt00",	"T068",	"BAT",	"Xmiss",	"Fls",	"PAR",	"COS/m",	"V0",	"V1",	"V5",	"PO4",	"SiO2",	"NO2",	"NO3NO2",	"NH4",	"TSM1",	"TSM2",	"TSM3",	"BSi",	"LSi",	"chla1",	"chla2",	"chla3",	"phaeo1",	"phaeo2",	"phaeo3",	"Fluor", "Chl",	"Fluor", "Phaeo",	"Chlide a",	"Chl c3",	"Chl c2",	"Chl c1 + c2",	"Perid",	"But",	"Fuco",	"Hex",	"Pras",	"Viol",	"Diadin",	"Allo",	"Diato",	"Lut",	"Zea",	"Chl b",	"Chl a",	"alpha-Carot",	"beta-Carot",	"Mva",	"Dva",	"Tot [Chl a]","	Wt % C",	"Wt % H",	"Wt % N",	"C/N Ratio"))
+
+```
+
+
+
